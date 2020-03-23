@@ -1,1 +1,1 @@
-g++ *.cpp -o ./dist/templater.exe -std=c++17 -lstdc++fs
+g++ *.cpp -o ./dist/templater -std=c++17 -lstdc++fs
