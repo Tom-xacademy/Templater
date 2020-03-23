@@ -21,16 +21,19 @@ using Text = std::string;
 namespace fs = std::experimental::filesystem;
 
 Text GetExeDir() {
-
-    //TODO make this work on windows as well
-    //This solution is for linux only. <3
-    char result[ PATH_MAX ];
-    ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
-    std::string f_path = std::string( result, (count > 0) ? count : 0 );
-    //19 is the lenght of /dist/Templater.exe
-    //I know this is a bullshit solution but it works for me since this
-    //is just for personal use and the name won't be modified.
-    return f_path.substr(0, f_path.length() - 18);
+    #ifdef WINDOWS
+        WCHAR path[MAX_PATH];
+        Text f_path = GetModuleFileNameW(NULL, path, MAX_PATH);
+        return f_path.substr(0, f_path.length() - 18);
+    #else
+        char result[ PATH_MAX ];
+        ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
+        std::string f_path = std::string( result, (count > 0) ? count : 0 );
+        //19 is the lenght of /dist/Templater.exe
+        //I know this is a bullshit solution but it works for me since this
+        //is just for personal use and the name won't be modified.
+        return f_path.substr(0, f_path.length() - 18);
+    #endif
 }
 
 Writer::Writer(Text component) {
