@@ -1,17 +1,14 @@
-import { dataSetter, IDynamicObject } from "xa-generics";
+import { ModelConstructor, IDynamicObject } from "xa-generics";
 
 export class CMPModel {
-    constructor(CV?: IDynamicObject) {
-        if (!CV) return;
-
-        for (let prop in this) {
-            if (!(prop in CV)) continue;
-            Object.assign(this, { [prop]: dataSetter(this[prop], CV[prop]) });
-        }
+    constructor(rawData?: IDynamicObject<any>) {
+        if (!rawData) return;
+        const data = rawData as CMPMData;
+        ModelConstructor(data, this);
     }
-    // Model properties
-    // ---
 
-    // Own functions and properties
-    // ---
+    id: string = "";
 }
+
+//If you add public methods, you may want to replace the empty string with them!
+type CMPMData = Partial<InstanceType<typeof CMPModel>>;

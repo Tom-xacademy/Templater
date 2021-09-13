@@ -14,7 +14,7 @@ EInputStatus InputHandler::Validate(Text word) const {
 
     if (length > 10) return EInputStatus::TOO_LONG;
 
-    EInputStatus::OK;
+    return EInputStatus::OK;
 }
 
 Text InputHandler::Convert(Text word) const {

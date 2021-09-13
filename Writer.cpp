@@ -29,10 +29,10 @@ Text GetExeDir() {
         char result[ PATH_MAX ];
         ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
         std::string f_path = std::string( result, (count > 0) ? count : 0 );
-        //19 is the lenght of /dist/Templater.exe
+        //19 is the length of /dist/Templater.exe
         //I know this is a bullshit solution but it works for me since this
         //is just for personal use and the name won't be modified.
-        return f_path.substr(0, f_path.length() - 18);
+        return f_path.substr(0, f_path.length() - 15);
     #endif
 }
 
@@ -144,11 +144,11 @@ void Writer::CloneFiles( Text root ) const {
 
     // Interfaces methods
 
-    Text Interfaces = ReadFile(GetExeDir() + "/Templates/ITemplateForm.interface.ts");
-    std::cout << std::endl << "Finished reading Interfaces..." << std::endl;
-    ReplaceText(Interfaces);
-    WriteFile(root + "/Interfaces/I" + names.CMP + "Form.interface.ts", Interfaces);
-    std::cout << std::endl << "Replaced Interfaces text..." << std::endl;
+    // Text Interfaces = ReadFile(GetExeDir() + "/Templates/ITemplateForm.interface.ts");
+    // std::cout << std::endl << "Finished reading Interfaces..." << std::endl;
+    // ReplaceText(Interfaces);
+    // WriteFile(root + "/Interfaces/I" + names.CMP + "Form.interface.ts", Interfaces);
+    // std::cout << std::endl << "Replaced Interfaces text..." << std::endl;
 
     // Model methods
 
